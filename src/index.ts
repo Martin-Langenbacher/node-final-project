@@ -8,14 +8,19 @@ console.log(hello(myName));
 
 import express from "express";
 
-const app = express();
+import routes from "./routes/index";
+import students from "./routes/api/students";
+import teacher from "./routes/api/teachers";
 
+const app = express();
 const port = 3000;
 
-app.get("/api", (req, res) => {
-  res.send("Hello, World");
-});
+// routes
+app.use("/api", routes);
+app.use("/continents", routes);
+app.use("/countries", routes);
 
+// start the Express server:
 app.listen(port, () => {
   console.log(`Server started at localhost: ${port}`);
 });
