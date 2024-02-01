@@ -5,8 +5,10 @@ const logger = (
   res: express.Response,
   next: Function
 ): void => {
-  let url = req.url;
-  console.log(`${url} was visited (message from logger).`);
+  //let url = req.url;
+  let baseUrl = req.baseUrl;
+  //console.log(`${url} was visited (message from logger).`);
+  console.log(`${baseUrl} was visited (baseUrl --> message from logger).`);
   next();
 };
 

@@ -11,6 +11,6 @@ routes.get("/", logger, (req: express.Request, res: express.Response): void => {
 });
 
 routes.use("/teachers", logger, teachers);
-routes.use("/students", students);
+routes.use("/students", logger, students);
 
 export default routes;
