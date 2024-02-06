@@ -20,6 +20,8 @@ const pathName = (req: Request, res: Response, next: Function) => {
     console.log("ERROR _______________________________ !!!");
     // Optionally, uncomment the next line if you want to terminate the request here
     // return res.status(400).send("Missing or invalid width or height");
+  } else {
+    console.log("Math:", width + height, ' --> no Error!');
   }
 
   // Respond to the client
@@ -30,9 +32,10 @@ const pathName = (req: Request, res: Response, next: Function) => {
   );
 
   console.log("Path-Name:", filename);
+  console.log("Path-Name:", filename);
   // Call next middleware or route handler
   next();
-  return 'Hello'
+ // return "Hello";
 };
 
 export default pathName;
