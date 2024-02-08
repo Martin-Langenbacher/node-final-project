@@ -8,7 +8,7 @@
 
 # production
 /build
-
+/assets/thumb
 
 # misc
 .DS_Store
