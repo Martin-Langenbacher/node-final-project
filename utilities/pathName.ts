@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import sharp from "sharp";
 
 export const pathName = (req: Request, res: Response, next: Function) => {
   const protocol = req.protocol;
@@ -53,4 +54,35 @@ export const sendImageFile = (imagePath: string, res: Response) => {
       res.status(404).send("Image not found");
     }
   });
+};
+
+export const getImage = async (
+  imagePath: string,
+  imgWidth: number,
+  imgHeight: number,
+  res: Response
+) => {
+  try {
+    // Use sharp for image processing
+    let image = sharp(imagePath);
+
+    // Resize image if width and height are provided
+    if (imgWidth && imgHeight) {
+      image = image.resize(imgWidth, imgHeight);
+    }
+
+    // Set the Content-Type header to image/jpeg
+    res.type("jpeg");
+
+    // Pipe the processed image to the response
+    await image.toBuffer((err, buffer) => {
+      if (err) {
+        throw err;
+      }
+      res.end(buffer);
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error processing the image");
+  }
 };
