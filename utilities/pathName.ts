@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 
-const pathName = (req: Request, res: Response, next: Function) => {
+export const pathName = (req: Request, res: Response, next: Function) => {
   const protocol = req.protocol;
   const host = req.get("host");
   const path = req.originalUrl;
@@ -21,11 +21,19 @@ const pathName = (req: Request, res: Response, next: Function) => {
     // Optionally, uncomment the next line if you want to terminate the request here
     // return res.status(400).send("Missing or invalid width or height");
   } else {
-    console.log("Math:", width + height, ' --> no Error!');
+    console.log("Math:", width + height, " --> no Error!");
   }
 
   // Respond to the client
-  res.send(`You requested URL --> from pathName.js: ${fullUrl}`);
+  //res.send(`You requested URL --> from pathName.js: ${fullUrl}`);
+
+  /*
+  res.sendFile(imagePath, (err) => {
+    if (err) {
+      res.status(404).send("Image not found");
+    }
+  });
+  */
 
   console.log(
     `Requested filename: ${filename}, width: ${width}, height: ${height}`
@@ -35,7 +43,14 @@ const pathName = (req: Request, res: Response, next: Function) => {
   console.log("Path-Name:", filename);
   // Call next middleware or route handler
   next();
- // return "Hello";
 };
 
-export default pathName;
+//export default {pathName, sendIm};
+export const sendImageFile = (imagePath: string, res: Response) => {
+  res.sendFile(imagePath, (err) => {
+    if (err) {
+      console.log(err);
+      res.status(404).send("Image not found");
+    }
+  });
+};
