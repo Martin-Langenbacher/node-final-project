@@ -7,10 +7,13 @@ import multer from "multer";
 import routes from "./routes/index";
 import { pathName, sendImageFile, getImage } from "../utilities/pathName";
 import { saveResizedImage } from "../utilities/savePicture";
+import doesFileExist from "../utilities/doesFileExist";
 
 const app = express();
 const port = 3000;
-const IMAGE_DIR = path.join(__dirname, "..", "assets", "full");
+// const IMAGE_DIR = path.join(__dirname, "..", "assets", "full");
+const FULL_IMAGE_DIR = path.join(__dirname, "..", "assets", "full");
+const THUMB_IMAGE_DIR = path.join(__dirname, "..", "assets", "thumb");
 
 app.get("/api/images", async (req, res) => {
   // Extracting query parameters
@@ -23,34 +26,49 @@ app.get("/api/images", async (req, res) => {
       : null;
 
   // TODO: Validate input --> More validation needed (in case the filename is wrong, ...)
-  /*
-  if (typeof filename !== "string" || !filename) {
-    return res.status(400).send("Filename is required and must be a string");
-  } */
-
-  if (!filename || imgWidth === null || imgHeight === null) {
+  if (typeof filename !== "string" || !filename || !imgWidth || !imgHeight) {
     return res
       .status(400)
       .send("Missing required query parameters: filename, width, and height.");
   }
 
-  // Construct image path
-  const imagePath = path.join(IMAGE_DIR, `${filename}.jpg`);
-  //const outputFilename = `${filename}-${imgWidth}x${imgHeight}.jpg`;
-  const outputFilename = `${filename}_thumb.jpg`;
+  // if (!filename || imgWidth === null || imgHeight === null) {
+  //   return res
+  //     .status(400)
+  //     .send("Missing required query parameters: filename, width, and height.");
+  // }
 
-  try {
-    const outputPath = await saveResizedImage(
-      imagePath,
-      imgWidth,
-      imgHeight,
-      outputFilename
-    );
-    res.sendFile(outputPath);
-  } catch (error) {
-    res.status(500).send("Error processing the image");
+  // Construct image path
+  const fullImagePath = path.join(FULL_IMAGE_DIR, `${filename}.jpg`);
+  const thumbImagePath = path.join(
+    THUMB_IMAGE_DIR,
+    `${filename}-${imgWidth}x${imgHeight}.jpg`
+  );
+
+  const imagePath = path.join(FULL_IMAGE_DIR, `${filename}.jpg`);
+  const outputFilename = `${filename}-${imgWidth}x${imgHeight}.jpg`;
+  //const outputFilename = `${filename}_thumb.jpg`;
+
+  const fileExist = await doesFileExist(outputFilename);
+  console.log("------> File exist? -->", fileExist);
+  if (fileExist) {
+    console.log("------> File exist: Use the existing file: TODO !!!");
+    //res.status(200).send("TODO...");
+    return res.status(200).sendFile(thumbImagePath);
+    //return res.sendFile(resizedImagePath);
+  } else {
+    try {
+      const outputPath = await saveResizedImage(
+        imagePath,
+        imgWidth,
+        imgHeight,
+        outputFilename
+      );
+      res.sendFile(outputPath);
+    } catch (error) {
+      res.status(500).send("Error processing the image");
+    }
   }
-  // getImage(imagePath, imgWidth!, imgHeight!, res);
 });
 
 // start the Express server:
