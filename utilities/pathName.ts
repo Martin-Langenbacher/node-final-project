@@ -83,6 +83,6 @@ export const getImage = async (
     });
   } catch (error) {
     console.error(error);
-    res.status(500).send("Error processing the image");
+    res.status(500).send("Error processing the image (pathName");
   }
 };

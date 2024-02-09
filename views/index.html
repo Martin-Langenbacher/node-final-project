@@ -5,11 +5,21 @@
   </head>
   <body>
     <h1>Main API Route: palmtunnel.jpg - index.html</h1>
+    <h2>You can try out:</h2>
+    <h4>http://localhost:3000/api/images?filename=fjord&width=400&height=400</h4>
     <img
       id="pictureId"
-      src="http://localhost:3000//assets/full/palmtunnel.jpg"
+      src="http://localhost:3000/assets/palmtunnel.jpg"
       alt="Test Image - Text"
       height="200"
     />
   </body>
 </html>
+
+<!-- 
+  
+  Access the image palmtunnel.jpg via http://localhost:3000/assets/palmtunnel.jpg
+without including full in the URL because the middleware already serves files
+from within the full directory. 
+
+-->
