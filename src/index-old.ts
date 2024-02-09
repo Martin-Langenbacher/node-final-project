@@ -9,7 +9,7 @@ import sharp from "sharp";
 import multer from "multer";
 
 import routes from "./routes/index";
-import { pathName, sendImageFile } from "../utilities/pathName";
+import { pathName, sendImageFile } from "./utilities/pathName";
 //import { pathName, sendImage } from './pathName';
 
 const app = express();

@@ -2,9 +2,9 @@ import express from "express";
 import path from "path";
 
 import routes from "./routes/index";
-import { pathName } from "../utilities/pathName";
-import { saveResizedImage } from "../utilities/savePicture";
-import doesFileExist from "../utilities/doesFileExist";
+import { pathName } from "./utilities/pathName";
+import { saveResizedImage } from "./utilities/savePicture";
+import doesFileExist from "./utilities/doesFileExist";
 
 const app = express();
 const port = 3000;
@@ -62,7 +62,7 @@ app.get("/api/images", async (req, res) => {
       }
     } else {
       console.log("SORRY: File does not exist. ------>  TODO !!!");
-      res.sendFile(path.join(__dirname, "../views/error.html"));
+      res.sendFile(path.join(__dirname, "../src/views/error.html"));
     }
   }
 });
