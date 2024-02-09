@@ -59,7 +59,7 @@ app.get("/api/images", (req, res) => __awaiter(void 0, void 0, void 0, function*
         }
         else {
             console.log("SORRY: File does not exist. ------>  filename is wrong!");
-            res.sendFile(path_1.default.join(__dirname, "../src/views/error.html"));
+            res.status(500).sendFile(path_1.default.join(__dirname, "../src/views/error.html"));
         }
     }
 }));
@@ -79,7 +79,9 @@ console.log("Here is my pathName:", pathName_1.pathName);
 console.log("H*********************ere is my pathName:*********************");
 // Example URL:
 // http://localhost:3000/api/images?filename=fjord&width=200&height=200
+// Just on test purposes (not for the task itself):
 function myFunc(x) {
     return x * x;
 }
 exports.myFunc = myFunc;
+exports.default = app;
