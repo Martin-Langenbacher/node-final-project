@@ -61,7 +61,7 @@ app.get("/api/images", async (req, res) => {
         res.status(500).send("Error processing the image (index)");
       }
     } else {
-      console.log("SORRY: File does not exist. ------>  TODO !!!");
+      console.log("SORRY: File does not exist. ------>  filename is wrong!");
       res.sendFile(path.join(__dirname, "../src/views/error.html"));
     }
   }
@@ -90,3 +90,8 @@ console.log("H*********************ere is my pathName:*********************");
 
 // Example URL:
 // http://localhost:3000/api/images?filename=fjord&width=200&height=200
+
+
+export function myFunc (x: number): number  {
+  return x*x
+}

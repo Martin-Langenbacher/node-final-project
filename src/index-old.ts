@@ -22,6 +22,8 @@ const outputFile = "./assets/playground/users.json";
 
 // Example:
 // define a route handler for the default home page
+
+// TODO: Keep this old index-old.ts file because of the /convert example !!!
 app.get("/convert", (req, res) => {
   res.send("converting in process!");
   csv()
@@ -107,58 +109,6 @@ app.get("/image/:imageName", (req, res) => {
   const imagePath = path.join(__dirname, "..", "assets", "full", imageName);
   sendImageFile(imagePath, res);
 });
-
-console.log("H*********************ere is my pathName:*********************");
-console.log("Here is my pathName:", pathName);
-console.log("H*********************ere is my pathName:*********************");
-
-// src="/assets/full/palmtunnel.jpg"
-//declare function sharp(): Sharp
-
-/*
-// Multer config for handling file uploads
-const upload = multer({ dest: "uploads/" }); // Temporarily save file to 'uploads/'
-
-// Route to upload and resize image
-app.post("/assets/full/", upload.single("picture"), async (req, res) => {
-  try {
-    const filepath = req.file?.path;
-
-    //.file.path;
-    const outputFilename = `resized-${Date.now()}.jpeg`;
-
-    // Use sharp to resize the image
-    await sharp(filepath)
-      .resize(200, 200) // Resize to 200x200 pixels
-      .toFormat("jpeg")
-      .jpeg({ quality: 90 }) // Set the quality of the image
-      .toFile(`./thumb/${outputFilename}`); // Save the resized image to 'resized/' directory
-
-    res.send(`Image uploaded and resized successfully as ${outputFilename}`);
-  } catch (error) {
-    console.error("Error processing file", error);
-    res.status(500).send("Error processing your file");
-  }
-  
-});
-
-*/
-
-
-
-// TODO: Old, delete this !!!
-/*
-//app.get("*", pathName);
-app.get("/image/:imageName", (req, res) => {
-  //app.get("/image/:imageName", (req, res) => {
-  const imageName = req.params.imageName;
-  const imagePath = path.join(__dirname, "..", "assets", "full", imageName);
-  sendImageFile(imagePath, res);
-});
-*/
-
-
-
 
 // Example URL:
 // http://localhost:3000/api/images?filename=fjord&width=200&height=200

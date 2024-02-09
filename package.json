@@ -6,7 +6,8 @@
   "scripts": {
     "build": "npx tsc",
     "start": "nodemon src/index.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "jasmine": "jasmine",
+    "test": "npm run build && npm run jasmine"
   },
   "keywords": [],
   "author": "ML",
@@ -14,6 +15,7 @@
   "devDependencies": {
     "@types/csvtojson": "^2.0.0",
     "@types/express": "^4.17.21",
+    "@types/jasmine": "^5.1.4",
     "@types/multer": "^1.4.11",
     "@types/node": "^20.11.10",
     "nodemon": "^3.0.3",
@@ -23,6 +25,8 @@
   "dependencies": {
     "csvtojson": "^2.0.10",
     "express": "^4.18.2",
+    "jasmine": "^5.1.0",
+    "jasmine-spec-reporter": "^7.0.0",
     "multer": "^1.4.5-lts.1",
     "sharp": "^0.33.2"
   }
