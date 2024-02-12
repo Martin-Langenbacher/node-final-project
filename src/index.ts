@@ -80,11 +80,6 @@ app.use("/api", routes);
 //app.use("/continents", routes);
 //app.use("/countries", routes);
 
-// TODO: Look deeper in this one - understanding the flow better!
-console.log("H*********************ere is my pathName:*********************");
-console.log("Here is my pathName:", pathName);
-console.log("H*********************ere is my pathName:*********************");
-
 // Just on test purposes (not for the task itself):
 export function myFunc(x: number): number {
   return x * x;
