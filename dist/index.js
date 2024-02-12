@@ -74,11 +74,12 @@ app.use("/api", index_1.default);
 console.log("H*********************ere is my pathName:*********************");
 console.log("Here is my pathName:", pathName_1.pathName);
 console.log("H*********************ere is my pathName:*********************");
-// Example URL:
-// http://localhost:3000/api/images?filename=fjord&width=200&height=200
 // Just on test purposes (not for the task itself):
 function myFunc(x) {
     return x * x;
 }
 exports.myFunc = myFunc;
 exports.default = app;
+//
+// Example URL:
+// http://localhost:3000/api/images?filename=fjord&width=200&height=200
