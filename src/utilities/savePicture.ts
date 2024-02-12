@@ -2,7 +2,7 @@ import sharp from "sharp";
 import path from "path";
 import fs from "fs";
 
-const OUTPUT_DIR = path.join(__dirname, "..", "assets", "thumb");
+const OUTPUT_DIR = path.join(__dirname, "..", "..", "assets", "thumb");
 
 // Ensure the output directory exists
 if (!fs.existsSync(OUTPUT_DIR)) {

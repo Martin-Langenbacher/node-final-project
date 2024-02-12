@@ -16,7 +16,7 @@ exports.saveResizedImage = void 0;
 const sharp_1 = __importDefault(require("sharp"));
 const path_1 = __importDefault(require("path"));
 const fs_1 = __importDefault(require("fs"));
-const OUTPUT_DIR = path_1.default.join(__dirname, "..", "assets", "thumb");
+const OUTPUT_DIR = path_1.default.join(__dirname, "..", "..", "assets", "thumb");
 // Ensure the output directory exists
 if (!fs_1.default.existsSync(OUTPUT_DIR)) {
     fs_1.default.mkdirSync(OUTPUT_DIR, { recursive: true });

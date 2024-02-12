@@ -16,17 +16,21 @@ describe("Basic tests (for learning purpose)", () => {
 });
 
 describe("Test endpoint responses", () => {
-  it("get the api endpoint", async () => {
+  it("get the /api endpoint", async () => {
     const response = await request.get("/api");
     expect(response.status).toBe(200);
   });
-  it("the api endpoint EXISTS (200)", async () => {
+  it("the api endpoint EXISTS (200): /api/images?filename=fjord&width=200&height=200", async () => {
     const response = await request.get("/api/images?filename=fjord&width=200&height=200");
     expect(response.status).toBe(200);
   });
-  it("the api endpoint does NOT exist (500)", async () => {
+  it("the api endpoint does NOT exist (500): /api/images?filename=wrongName&width=200&height=200", async () => {
     const response = await request.get("/api/images?filename=wrongName&width=200&height=200");
     expect(response.status).toBe(500);
+  });
+  it("the api endpoint height is missing: /api/images?filename=fjord&width=200", async () => {
+    const response = await request.get("/api/images?filename=fjord&width=200");
+    expect(response.text).toBe('Missing required query parameters: filename, width, and height.');
   });
 });
 

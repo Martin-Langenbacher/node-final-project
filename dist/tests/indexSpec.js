@@ -26,17 +26,23 @@ describe("Basic tests (for learning purpose)", () => {
     });
 });
 describe("Test endpoint responses", () => {
-    it("get the api endpoint", () => __awaiter(void 0, void 0, void 0, function* () {
+    it("get the /api endpoint", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield request.get("/api");
         expect(response.status).toBe(200);
     }));
-    it("the api endpoint EXISTS (200)", () => __awaiter(void 0, void 0, void 0, function* () {
+    it("the api endpoint EXISTS (200): /api/images?filename=fjord&width=200&height=200", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield request.get("/api/images?filename=fjord&width=200&height=200");
         expect(response.status).toBe(200);
     }));
-    it("the api endpoint does NOT exist (500)", () => __awaiter(void 0, void 0, void 0, function* () {
+    it("the api endpoint does NOT exist (500): /api/images?filename=wrongName&width=200&height=200", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield request.get("/api/images?filename=wrongName&width=200&height=200");
         expect(response.status).toBe(500);
     }));
+    it("the api endpoint height is missing: /api/images?filename=fjord&width=200", () => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield request.get("/api/images?filename=fjord&width=200");
+        expect(response.text).toBe('Missing required query parameters: filename, width, and height.');
+    }));
 });
 // http://localhost:3000/api/images?filename=fjord&width=200&height=200
+// TODO: More tests: I need one, when in the full folder is the picture, but in the thumb is nothing
+// TODO: alternative: Both folders it is there - AND no reload... !!!
