@@ -42,8 +42,6 @@ app.get("/api/images", (req, res) => __awaiter(void 0, void 0, void 0, function*
     const outputFilename = `${filename}-${imgWidth}x${imgHeight}.jpg`;
     const fileExistInThumb = yield (0, doesFileExist_1.default)(outputFilename, THUMB_IMAGE_DIR);
     const fileExistOriginal = yield (0, doesFileExist_1.default)(`${filename}.jpg`, FULL_IMAGE_DIR);
-    console.log("------> File exist in Thumb? -->", fileExistInThumb);
-    console.log("------> File exist (original)? -->", fileExistOriginal);
     if (fileExistInThumb) {
         return res.status(200).sendFile(thumbImagePath);
     }
@@ -58,7 +56,6 @@ app.get("/api/images", (req, res) => __awaiter(void 0, void 0, void 0, function*
             }
         }
         else {
-            console.log("SORRY: File does not exist. ------>  filename is wrong!");
             res.status(500).sendFile(path_1.default.join(__dirname, "../src/views/error.html"));
         }
     }

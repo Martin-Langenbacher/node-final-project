@@ -43,8 +43,6 @@ app.get("/api/images", async (req, res) => {
     FULL_IMAGE_DIR
   );
 
-  console.log("------> File exist in Thumb? -->", fileExistInThumb);
-  console.log("------> File exist (original)? -->", fileExistOriginal);
   if (fileExistInThumb) {
     return res.status(200).sendFile(thumbImagePath);
   } else {
@@ -61,7 +59,6 @@ app.get("/api/images", async (req, res) => {
         res.status(500).send("Error processing the image (index)");
       }
     } else {
-      console.log("SORRY: File does not exist. ------>  filename is wrong!");
       res.status(500).sendFile(path.join(__dirname, "../src/views/error.html"));
     }
   }
@@ -88,12 +85,13 @@ console.log("H*********************ere is my pathName:*********************");
 console.log("Here is my pathName:", pathName);
 console.log("H*********************ere is my pathName:*********************");
 
-// Example URL:
-// http://localhost:3000/api/images?filename=fjord&width=200&height=200
-
 // Just on test purposes (not for the task itself):
-export function myFunc (x: number): number  {
-  return x*x
+export function myFunc(x: number): number {
+  return x * x;
 }
 
-export default app
+export default app;
+
+//
+// Example URL:
+// http://localhost:3000/api/images?filename=fjord&width=200&height=200
