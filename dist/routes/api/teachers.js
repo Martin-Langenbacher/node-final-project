@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const teacher = express_1.default.Router();
-teacher.get("/", (req, res) => {
-    res.send("Teachers route");
+teacher.get('/', (req, res) => {
+    res.send('Teachers route');
 });
 exports.default = teacher;

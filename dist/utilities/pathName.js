@@ -16,22 +16,20 @@ exports.getImage = exports.sendImageFile = exports.pathName = void 0;
 const sharp_1 = __importDefault(require("sharp"));
 const pathName = (req, res, next) => {
     const protocol = req.protocol;
-    const host = req.get("host");
+    const host = req.get('host');
     const path = req.originalUrl;
     const fullUrl = `${protocol}://${host}${path}`;
-    console.log("User requested URL:", fullUrl);
+    console.log('User requested URL:', fullUrl);
     const filename = req.query.filename;
-    const width = typeof req.query.width === "string" ? parseInt(req.query.width, 10) : null;
-    const height = typeof req.query.height === "string"
-        ? parseInt(req.query.height, 10)
-        : null;
+    const width = typeof req.query.width === 'string' ? parseInt(req.query.width, 10) : null;
+    const height = typeof req.query.height === 'string' ? parseInt(req.query.height, 10) : null;
     if (width === null || height === null) {
-        console.log("ERROR _______________________________ !!!");
+        console.log('ERROR _______________________________ !!!');
         // Optionally, uncomment the next line if you want to terminate the request here
         // return res.status(400).send("Missing or invalid width or height");
     }
     else {
-        console.log("Math:", width + height, " --> no Error!");
+        console.log('Math:', width + height, ' --> no Error!');
     }
     // Respond to the client
     //res.send(`You requested URL --> from pathName.js: ${fullUrl}`);
@@ -43,8 +41,8 @@ const pathName = (req, res, next) => {
     });
     */
     console.log(`Requested filename: ${filename}, width: ${width}, height: ${height}`);
-    console.log("Path-Name:", filename);
-    console.log("Path-Name:", filename);
+    console.log('Path-Name:', filename);
+    console.log('Path-Name:', filename);
     // Call next middleware or route handler
     next();
 };
@@ -54,7 +52,7 @@ const sendImageFile = (imagePath, res) => {
     res.sendFile(imagePath, (err) => {
         if (err) {
             console.log(err);
-            res.status(404).send("Image not found");
+            res.status(404).send('Image not found');
         }
     });
 };
@@ -68,7 +66,7 @@ const getImage = (imagePath, imgWidth, imgHeight, res) => __awaiter(void 0, void
             image = image.resize(imgWidth, imgHeight);
         }
         // Set the Content-Type header to image/jpeg
-        res.type("jpeg");
+        res.type('jpeg');
         // Pipe the processed image to the response
         yield image.toBuffer((err, buffer) => {
             if (err) {
@@ -79,7 +77,7 @@ const getImage = (imagePath, imgWidth, imgHeight, res) => __awaiter(void 0, void
     }
     catch (error) {
         console.error(error);
-        res.status(500).send("Error processing the image (pathName");
+        res.status(500).send('Error processing the image (pathName');
     }
 });
 exports.getImage = getImage;

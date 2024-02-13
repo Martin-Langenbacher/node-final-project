@@ -5,6 +5,8 @@ import routes from './routes/index';
 import { saveResizedImage } from './utilities/savePicture';
 import doesFileExist from './utilities/doesFileExist';
 
+// TODO: Open: Functions do not have typed parameters or return type. !!!!!!!!!!!
+
 const app = express();
 const port = 3000;
 const FULL_IMAGE_DIR = path.join(__dirname, '..', 'assets', 'full');

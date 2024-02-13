@@ -16,7 +16,7 @@ exports.saveResizedImage = void 0;
 const sharp_1 = __importDefault(require("sharp"));
 const path_1 = __importDefault(require("path"));
 const fs_1 = __importDefault(require("fs"));
-const OUTPUT_DIR = path_1.default.join(__dirname, "..", "..", "assets", "thumb");
+const OUTPUT_DIR = path_1.default.join(__dirname, '..', '..', 'assets', 'thumb');
 // Ensure the output directory exists
 if (!fs_1.default.existsSync(OUTPUT_DIR)) {
     fs_1.default.mkdirSync(OUTPUT_DIR, { recursive: true });
@@ -24,13 +24,11 @@ if (!fs_1.default.existsSync(OUTPUT_DIR)) {
 const saveResizedImage = (imagePath, imgWidth, imgHeight, outputFilename) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const outputPath = path_1.default.join(OUTPUT_DIR, outputFilename);
-        yield (0, sharp_1.default)(imagePath)
-            .resize(imgWidth, imgHeight)
-            .toFile(outputPath);
+        yield (0, sharp_1.default)(imagePath).resize(imgWidth, imgHeight).toFile(outputPath);
         return outputPath;
     }
     catch (error) {
-        console.error("Error resizing and saving image:", error);
+        console.error('Error resizing and saving image:', error);
         throw error;
     }
 });

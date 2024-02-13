@@ -4,6 +4,7 @@ import path from 'path';
 
 import app from '../index';
 import { myFunc } from '../index';
+import { saveResizedImage } from '../utilities/savePicture';
 
 const request = supertest(app);
 
@@ -53,7 +54,11 @@ describe('*** Test endpoint responses: Test for the final project!', () => {
 
   it('7) the api endpoint height is missing: /api/images?filename=fjord&width=200', async () => {
     const response = await request.get('/api/images?filename=fjord&width=200');
-    expect(response.text).toBe('Missing required query parameters: filename, width, and height.');
+    expect(response.status).toBe(400);
+    expect(response.text).toContain('Parameter ERROR');
+    expect(response.text).toContain(
+      'Sorry, wrong or missing required query parameters: filename, width, and height !'
+    );
   });
 
   // Cleanup after the test
@@ -69,8 +74,41 @@ describe('*** Test endpoint responses: Test for the final project!', () => {
   });
 });
 
+describe('*** Image Processing Test', () => {
+  const testFilePath = path.join(__dirname, '..', 'assets', 'testPic', 'fjordTestPic.jpg');
+  const testWidth = 267;
+  const testHeight = 279;
+  const testThumbPath = path.join(
+    __dirname,
+    '..',
+    '..',
+    'assets',
+    'thumb',
+    `test-${testWidth}x${testHeight}.jpg`
+  );
+  const testFileName = `test-${testWidth}x${testHeight}.jpg`;
+
+  beforeAll(() => {
+    // Setup: Make sure the test image and directories exist
+  });
+
+  afterAll(() => {
+    // Cleanup: Remove the generated thumbnail image after tests
+    try {
+      // fs.unlinkSync(testThumbPath);
+      fs.unlinkSync(testThumbPath);
+    } catch (error) {
+      console.error('Error cleaning up test thumbnail image:', error);
+    }
+  });
+
+  it('9) should not throw an error when transforming an image', async () => {
+    await expectAsync(
+      saveResizedImage(testFilePath, testWidth, testHeight, testFileName)
+    ).toBeResolved();
+  });
+});
+
 // http://localhost:3000/api/images?filename=fjord&width=200&height=200
 
-// TODO: More tests: I need one, when in the full folder is the picture, but in the thumb is nothing
-
-// TODO: alternative: Both folders it is there - AND no reload... !!!
+// TODO: Test specs for image processing are missing.
