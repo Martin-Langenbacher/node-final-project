@@ -12,18 +12,48 @@ const FULL_IMAGE_DIR = path.join(__dirname, "..", "assets", "full");
 const THUMB_IMAGE_DIR = path.join(__dirname, "..", "assets", "thumb");
 
 app.get("/api/images", async (req, res) => {
-  // Extracting query parameters
+  // getting the query parameters
   const filename = req.query.filename;
-  const imgWidth =
-    typeof req.query.width === "string" ? parseInt(req.query.width, 10) : null;
-  const imgHeight =
-    typeof req.query.height === "string"
-      ? parseInt(req.query.height, 10)
-      : null;
-  if (typeof filename !== "string" || !filename || !imgWidth || !imgHeight) {
+  const imgWidthStr = req.query.width;
+  const imgHeightStr = req.query.height;
+
+  let imgWidth = null;
+  let imgHeight = null;
+
+  // VALIDATION: width validation
+  if (typeof imgWidthStr === "string") {
+    imgWidth = parseInt(imgWidthStr, 10);
+    if (isNaN(imgWidth) || !/^\d+$/.test(imgWidthStr)) {
+      console.log("Invalid width value", imgWidthStr);
+      return res
+        .status(400)
+        .sendFile(path.join(__dirname, "../src/views/errorParam.html"));
+    }
+  }
+
+  // VALIDATION: height validation
+  if (typeof imgHeightStr === "string") {
+    imgHeight = parseInt(imgHeightStr, 10);
+    if (isNaN(imgHeight) || !/^\d+$/.test(imgHeightStr)) {
+      console.log("Invalid height value", imgHeightStr);
+      return res
+        .status(400)
+        .sendFile(path.join(__dirname, "../src/views/errorParam.html"));
+    }
+  }
+
+  // VALIDATION: validation of filename and check if parameter exist
+  if (
+    typeof filename !== "string" ||
+    !filename ||
+    !imgWidth ||
+    !imgHeight ||
+    imgWidth <= 0 ||
+    imgHeight <= 0
+  ) {
     return res
       .status(400)
-      .send("Missing required query parameters: filename, width, and height.");
+      .sendFile(path.join(__dirname, "../src/views/errorParam.html"));
   }
 
   // Construct image path
@@ -56,7 +86,9 @@ app.get("/api/images", async (req, res) => {
         );
         res.sendFile(outputPath);
       } catch (error) {
-        res.status(500).send("Error processing the image (index)");
+        res
+          .status(500)
+          .sendFile(path.join(__dirname, "../src/views/error.html"));
       }
     } else {
       res.status(500).sendFile(path.join(__dirname, "../src/views/error.html"));
