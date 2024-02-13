@@ -1,8 +1,8 @@
-import sharp from "sharp";
-import path from "path";
-import fs from "fs";
+import sharp from 'sharp';
+import path from 'path';
+import fs from 'fs';
 
-const OUTPUT_DIR = path.join(__dirname, "..", "..", "assets", "thumb");
+const OUTPUT_DIR = path.join(__dirname, '..', '..', 'assets', 'thumb');
 
 // Ensure the output directory exists
 if (!fs.existsSync(OUTPUT_DIR)) {
@@ -18,13 +18,11 @@ export const saveResizedImage = async (
   try {
     const outputPath = path.join(OUTPUT_DIR, outputFilename);
 
-    await sharp(imagePath)
-      .resize(imgWidth, imgHeight)
-      .toFile(outputPath);
+    await sharp(imagePath).resize(imgWidth, imgHeight).toFile(outputPath);
 
     return outputPath;
   } catch (error) {
-    console.error("Error resizing and saving image:", error);
+    console.error('Error resizing and saving image:', error);
     throw error;
   }
 };

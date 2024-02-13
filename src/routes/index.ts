@@ -1,19 +1,19 @@
-import express from "express";
+import express from 'express';
 
-import students from "./api/students";
-import teachers from "./api/teachers";
-import logger from "../utilities/logger";
-import path from "path";
+import students from './api/students';
+import teachers from './api/teachers';
+import logger from '../utilities/logger';
+import path from 'path';
 
 const routes = express.Router();
 
-routes.get("/", logger, (req: express.Request, res: express.Response): void => {
+routes.get('/', logger, (req: express.Request, res: express.Response): void => {
   // res.send("Main api route *** !");
-  res.sendFile(path.join(__dirname, '../../src/views/index.html'))
+  res.sendFile(path.join(__dirname, '../../src/views/index.html'));
 });
 
-routes.use("/teachers", logger, teachers);
-routes.use("/students", logger, students);
+routes.use('/teachers', logger, teachers);
+routes.use('/students', logger, students);
 
 export default routes;
 

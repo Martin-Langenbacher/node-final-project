@@ -1,17 +1,16 @@
-import express from "express";
-import path from "path";
+import express from 'express';
+import path from 'path';
 
-import routes from "./routes/index";
-import { pathName } from "./utilities/pathName";
-import { saveResizedImage } from "./utilities/savePicture";
-import doesFileExist from "./utilities/doesFileExist";
+import routes from './routes/index';
+import { saveResizedImage } from './utilities/savePicture';
+import doesFileExist from './utilities/doesFileExist';
 
 const app = express();
 const port = 3000;
-const FULL_IMAGE_DIR = path.join(__dirname, "..", "assets", "full");
-const THUMB_IMAGE_DIR = path.join(__dirname, "..", "assets", "thumb");
+const FULL_IMAGE_DIR = path.join(__dirname, '..', 'assets', 'full');
+const THUMB_IMAGE_DIR = path.join(__dirname, '..', 'assets', 'thumb');
 
-app.get("/api/images", async (req, res) => {
+app.get('/api/images', async (req, res) => {
   // getting the query parameters
   const filename = req.query.filename;
   const imgWidthStr = req.query.width;
@@ -21,57 +20,39 @@ app.get("/api/images", async (req, res) => {
   let imgHeight = null;
 
   // VALIDATION: width validation
-  if (typeof imgWidthStr === "string") {
+  if (typeof imgWidthStr === 'string') {
     imgWidth = parseInt(imgWidthStr, 10);
     if (isNaN(imgWidth) || !/^\d+$/.test(imgWidthStr)) {
-      console.log("Invalid width value", imgWidthStr);
-      return res
-        .status(400)
-        .sendFile(path.join(__dirname, "../src/views/errorParam.html"));
+      return res.status(400).sendFile(path.join(__dirname, '../src/views/errorParam.html'));
     }
   }
 
   // VALIDATION: height validation
-  if (typeof imgHeightStr === "string") {
+  if (typeof imgHeightStr === 'string') {
     imgHeight = parseInt(imgHeightStr, 10);
     if (isNaN(imgHeight) || !/^\d+$/.test(imgHeightStr)) {
-      console.log("Invalid height value", imgHeightStr);
-      return res
-        .status(400)
-        .sendFile(path.join(__dirname, "../src/views/errorParam.html"));
+      return res.status(400).sendFile(path.join(__dirname, '../src/views/errorParam.html'));
     }
   }
 
   // VALIDATION: validation of filename and check if parameter exist
   if (
-    typeof filename !== "string" ||
+    typeof filename !== 'string' ||
     !filename ||
     !imgWidth ||
     !imgHeight ||
     imgWidth <= 0 ||
     imgHeight <= 0
   ) {
-    return res
-      .status(400)
-      .sendFile(path.join(__dirname, "../src/views/errorParam.html"));
+    return res.status(400).sendFile(path.join(__dirname, '../src/views/errorParam.html'));
   }
 
   // Construct image path
   const fullImagePath = path.join(FULL_IMAGE_DIR, `${filename}.jpg`);
-  const thumbImagePath = path.join(
-    THUMB_IMAGE_DIR,
-    `${filename}-${imgWidth}x${imgHeight}.jpg`
-  );
-
-  const imagePath = path.join(FULL_IMAGE_DIR, `${filename}.jpg`);
+  const thumbImagePath = path.join(THUMB_IMAGE_DIR, `${filename}-${imgWidth}x${imgHeight}.jpg`);
   const outputFilename = `${filename}-${imgWidth}x${imgHeight}.jpg`;
-
   const fileExistInThumb = await doesFileExist(outputFilename, THUMB_IMAGE_DIR);
-
-  const fileExistOriginal = await doesFileExist(
-    `${filename}.jpg`,
-    FULL_IMAGE_DIR
-  );
+  const fileExistOriginal = await doesFileExist(`${filename}.jpg`, FULL_IMAGE_DIR);
 
   if (fileExistInThumb) {
     return res.status(200).sendFile(thumbImagePath);
@@ -79,28 +60,23 @@ app.get("/api/images", async (req, res) => {
     if (fileExistOriginal) {
       try {
         const outputPath = await saveResizedImage(
-          imagePath,
+          fullImagePath,
           imgWidth,
           imgHeight,
           outputFilename
         );
         res.sendFile(outputPath);
       } catch (error) {
-        res
-          .status(500)
-          .sendFile(path.join(__dirname, "../src/views/error.html"));
+        res.status(500).sendFile(path.join(__dirname, '../src/views/error.html'));
       }
     } else {
-      res.status(500).sendFile(path.join(__dirname, "../src/views/error.html"));
+      res.status(500).sendFile(path.join(__dirname, '../src/views/error.html'));
     }
   }
 });
 
 //app.use('/assets', express.static('../assets/full/'));
-app.use(
-  "/assets",
-  express.static(path.join(__dirname, "..", "assets", "full"))
-);
+app.use('/assets', express.static(path.join(__dirname, '..', 'assets', 'full')));
 
 // start the Express server:
 app.listen(port, () => {
@@ -108,7 +84,7 @@ app.listen(port, () => {
 });
 
 // routes
-app.use("/api", routes);
+app.use('/api', routes);
 //app.use("/continents", routes);
 //app.use("/countries", routes);
 
@@ -122,3 +98,33 @@ export default app;
 //
 // Example URL:
 // http://localhost:3000/api/images?filename=fjord&width=200&height=200
+
+//
+/*
+Note: 
+TODO: Converting code for csv: Not needed in this project!
+
+app.get('/convert', (req, res) => {
+  res.send('converting in process!');
+  csv()
+    .fromFile(inputFile)
+    .then((data) => {
+      console.log('AFTER input file');
+      return data;
+    })
+    .then((data) => {
+      const newData = data.map((item: { first_name: string; last_name: string; phone: string }) => {
+        const first = item.first_name;
+        const last = item.last_name;
+        let phone = item.phone;
+        if (item.phone === '') {
+          phone = 'missing data';
+        }
+        return { first, last, phone };
+      });
+      fsPromises.writeFile(outputFile, JSON.stringify(newData));
+    });
+});
+
+
+*/
