@@ -21,17 +21,6 @@ export const pathName = (req: Request, res: Response, next: NextFunction) => {
     console.log('Math:', width + height, ' --> no Error!');
   }
 
-  // Respond to the client
-  //res.send(`You requested URL --> from pathName.js: ${fullUrl}`);
-
-  /*
-  res.sendFile(imagePath, (err) => {
-    if (err) {
-      res.status(404).send("Image not found");
-    }
-  });
-  */
-
   console.log(`Requested filename: ${filename}, width: ${width}, height: ${height}`);
 
   console.log('Path-Name:', filename);

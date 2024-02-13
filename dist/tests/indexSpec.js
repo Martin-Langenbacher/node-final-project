@@ -77,15 +77,6 @@ describe('*** Image Processing Test', () => {
     const testWidth = 267;
     const testHeight = 279;
     const testThumbPath = path_1.default.join(__dirname, '..', '..', 'assets', 'thumb', `test-${testWidth}x${testHeight}.jpg`);
-    /*
-    const testThumbPath = path.join(
-      __dirname,
-      '..',
-      'assets',
-      'thumb',
-      `test-${testWidth}x${testHeight}.jpg`
-    );
-    */
     const testFileName = `test-${testWidth}x${testHeight}.jpg`;
     beforeAll(() => {
         // Setup: Make sure the test image and directories exist

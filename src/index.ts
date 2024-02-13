@@ -12,7 +12,7 @@ const port = 3000;
 const FULL_IMAGE_DIR = path.join(__dirname, '..', 'assets', 'full');
 const THUMB_IMAGE_DIR = path.join(__dirname, '..', 'assets', 'thumb');
 
-app.get('/api/images', async (req, res) => {
+app.get('/api/images', async (req: express.Request, res: express.Response) => {
   // getting the query parameters
   const filename = req.query.filename;
   const imgWidthStr = req.query.width;
