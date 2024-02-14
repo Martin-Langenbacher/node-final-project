@@ -78,8 +78,6 @@ describe('*** Image Processing Test', () => {
     const testFileName = `test-${testWidth}x${testHeight}.jpg`;
     const testFilePath = path_1.default.join(__dirname, '..', '..', 'assets', 'testPic', 'fjordTestPic.jpg');
     const testThumbPath = path_1.default.join(__dirname, '..', '..', 'assets', 'thumb', `test-${testWidth}x${testHeight}.jpg`);
-    console.log('*************** 1 (testFilePath): ', testFilePath);
-    console.log('*************** 2 (testThumbPath): ', testThumbPath);
     beforeAll(() => {
         // Setup: Make sure the test image and directories exist
     });
@@ -94,8 +92,6 @@ describe('*** Image Processing Test', () => {
         }
     });
     it('9) should not throw an error when transforming an image', () => __awaiter(void 0, void 0, void 0, function* () {
-        console.log('*************** 3 (testFilePath): ', testFilePath);
-        console.log('*************** 4 (testFileName): ', testFileName);
         yield expectAsync((0, savePicture_1.saveResizedImage)(testFilePath, testWidth, testHeight, testFileName)).toBeResolved();
     }));
 });
