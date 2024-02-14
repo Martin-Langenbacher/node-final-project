@@ -37,9 +37,9 @@ describe('*** Test endpoint responses: Test for the final project!', () => {
     expect(response.status).toBe(200);
   });
 
-  it('5) file exist: fjord-200x200.jpg', async () => {
+  it('5) file exist: fjordTestPic.jpg', async () => {
     // Check if the image file was saved correctly
-    const fileExists = fs.existsSync(path.join(__dirname, `../assets/thumb/fjord-200x200.jpg`));
+    const fileExists = fs.existsSync(path.join(__dirname, `../../assets/testPic/fjordTestPic.jpg`));
     expect(fileExists).toBe(true);
   });
 
@@ -75,9 +75,11 @@ describe('*** Test endpoint responses: Test for the final project!', () => {
 });
 
 describe('*** Image Processing Test', () => {
-  const testFilePath = path.join(__dirname, '..', 'assets', 'testPic', 'fjordTestPic.jpg');
   const testWidth = 267;
   const testHeight = 279;
+  const testFileName = `test-${testWidth}x${testHeight}.jpg`;
+  const testFilePath = path.join(__dirname, '..', '..', 'assets', 'testPic', 'fjordTestPic.jpg');
+
   const testThumbPath = path.join(
     __dirname,
     '..',
@@ -86,7 +88,6 @@ describe('*** Image Processing Test', () => {
     'thumb',
     `test-${testWidth}x${testHeight}.jpg`
   );
-  const testFileName = `test-${testWidth}x${testHeight}.jpg`;
 
   beforeAll(() => {
     // Setup: Make sure the test image and directories exist
@@ -110,5 +111,3 @@ describe('*** Image Processing Test', () => {
 });
 
 // http://localhost:3000/api/images?filename=fjord&width=200&height=200
-
-// TODO: Test specs for image processing are missing.

@@ -43,9 +43,9 @@ describe('*** Test endpoint responses: Test for the final project!', () => {
         const response = yield request.get('/api/images?filename=fjord&width=200&height=200');
         expect(response.status).toBe(200);
     }));
-    it('5) file exist: fjord-200x200.jpg', () => __awaiter(void 0, void 0, void 0, function* () {
+    it('5) file exist: fjordTestPic.jpg', () => __awaiter(void 0, void 0, void 0, function* () {
         // Check if the image file was saved correctly
-        const fileExists = fs_1.default.existsSync(path_1.default.join(__dirname, `../assets/thumb/fjord-200x200.jpg`));
+        const fileExists = fs_1.default.existsSync(path_1.default.join(__dirname, `../../assets/testPic/fjordTestPic.jpg`));
         expect(fileExists).toBe(true);
     }));
     it(`6) the api endpoint EXISTS (200): ${testPath}`, () => __awaiter(void 0, void 0, void 0, function* () {
@@ -73,11 +73,13 @@ describe('*** Test endpoint responses: Test for the final project!', () => {
     }));
 });
 describe('*** Image Processing Test', () => {
-    const testFilePath = path_1.default.join(__dirname, '..', 'assets', 'testPic', 'fjordTestPic.jpg');
     const testWidth = 267;
     const testHeight = 279;
-    const testThumbPath = path_1.default.join(__dirname, '..', '..', 'assets', 'thumb', `test-${testWidth}x${testHeight}.jpg`);
     const testFileName = `test-${testWidth}x${testHeight}.jpg`;
+    const testFilePath = path_1.default.join(__dirname, '..', '..', 'assets', 'testPic', 'fjordTestPic.jpg');
+    const testThumbPath = path_1.default.join(__dirname, '..', '..', 'assets', 'thumb', `test-${testWidth}x${testHeight}.jpg`);
+    console.log('*************** 1 (testFilePath): ', testFilePath);
+    console.log('*************** 2 (testThumbPath): ', testThumbPath);
     beforeAll(() => {
         // Setup: Make sure the test image and directories exist
     });
@@ -92,8 +94,9 @@ describe('*** Image Processing Test', () => {
         }
     });
     it('9) should not throw an error when transforming an image', () => __awaiter(void 0, void 0, void 0, function* () {
+        console.log('*************** 3 (testFilePath): ', testFilePath);
+        console.log('*************** 4 (testFileName): ', testFileName);
         yield expectAsync((0, savePicture_1.saveResizedImage)(testFilePath, testWidth, testHeight, testFileName)).toBeResolved();
     }));
 });
 // http://localhost:3000/api/images?filename=fjord&width=200&height=200
-// TODO: Test specs for image processing are missing.
